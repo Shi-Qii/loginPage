@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('The login module has not been initialized.');
                 return;
             }
-
+            console.log("new version")
             // 登入功能
             let loginSuccessful = true;  // 假定為登入成功
 
