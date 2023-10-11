@@ -5,11 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<div class="login-container">
-    <label for="userId"></label><input type="text" id="userId" placeholder="Username" />
-    <label for="userPwd"></label><input type="password" id="userPwd" placeholder="Password" />
-    <button id="login-btn">Login</button>
-</div>
+
+<div id="my-login-container"></div>
+
+<!--<script src="https://cdn.jsdelivr.net/gh/Shi-Qii/loginPage@main/login_module_gama/src/script.js-->
+<!--"></script>-->
+<script src="./script.js">
+   init({
+       useGoogleLogin:true
+   });
+
+    renderLogin('my-login-container');
+</script>
+
 
 </body>
 </html>
