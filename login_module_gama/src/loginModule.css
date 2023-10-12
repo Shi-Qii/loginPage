@@ -15,12 +15,12 @@
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 40%;
 }
 .close {
-    color: #aaaaaa;
+    color: #508ce0;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
 }
 .close:hover,

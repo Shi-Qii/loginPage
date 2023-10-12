@@ -1,4 +1,3 @@
-
 let isInitialized = false;
 let userCallbacks = {
     onLoginSuccess: null,
@@ -12,12 +11,16 @@ let openModalBtnTemplate = `
 <button id="openModalBtn">Open Login</button>
 
 <div id="loginModal" class="modal">
+
   <div class="modal-content">
-    <span class="close">&times;</span>
+      <span class="close">&times;</span>
+
     <div class="login-container">
       <input type="text" id="username" placeholder="Username" />
       <input type="password" id="password" placeholder="Password" />
       <button id="login-btn">Login</button>
+      <br>
+      <br>
       <button id="google-login-btn">GoogleLogin</button>
       <button id="fb-login-btn">FBLogin</button>
     </div>
@@ -72,7 +75,6 @@ const init = (params) => {
         useLoginModalTemplate()
 
 
-
         showLoginBtnType({
             'google': params.useGoogleLogin,
             'FB': params.useFBLogin,
@@ -87,9 +89,31 @@ const init = (params) => {
 
     }
 }
+
+const loginSubmit = async () => {
+    let obj;
+    await axios.get('https://dev-api.gashpoint.io/consumer/api/oauth/oauth2/thirdParty/domainInfo')
+        .then(res => {
+            // 通常 res 會是多項資料，取出需要的部份
+            obj = res.data
+        })
+        // err.response 是固定用法
+        .catch(err => {
+            console.log(err.response);
+        })
+
+    return obj;
+}
 const showLoginBtnType = (showLoginType) => {
     if (showLoginType.google) {
         document.getElementById('google-login-btn').style.display = 'block';
+        const gLoginBtn = document.getElementById('google-login-btn');
+        if (gLoginBtn) {
+            gLoginBtn.addEventListener('click', async function () {
+                alert('我是google登入')
+            })
+        }
+
     } else {
         document.getElementById('google-login-btn').style.display = 'none';
 
@@ -98,6 +122,13 @@ const showLoginBtnType = (showLoginType) => {
 
     if (showLoginType.FB) {
         document.getElementById('fb-login-btn').style.display = 'block';
+        const fbLoginBtn = document.getElementById('fb-login-btn');
+        if (fbLoginBtn) {
+            fbLoginBtn.addEventListener('click', async function () {
+                alert('我是FB登入')
+
+            })
+        }
     } else {
         document.getElementById('fb-login-btn').style.display = 'none';
 
@@ -110,11 +141,15 @@ const showLoginBtnType = (showLoginType) => {
 document.addEventListener('DOMContentLoaded', function () {
     const loginBtn = document.getElementById('login-btn');
     if (loginBtn) {
-        loginBtn.addEventListener('click', function () {
+        loginBtn.addEventListener('click', async function () {
             if (!isInitialized) {
                 console.error('The login module has not been initialized.');
                 return;
             }
+            alert('我是email登入')
+
+            let res = await loginSubmit();
+            console.log('res:', res)
             // 登入功能
             // 透過email登入
             let loginSuccessful = true;  // 假定為登入成功
@@ -129,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 if (userCallbacks.onLoginFailure) {
                     userCallbacks.onLoginFailure();
+                    //跳出登入失敗畫面或提示之類
                 }
             }
         });
