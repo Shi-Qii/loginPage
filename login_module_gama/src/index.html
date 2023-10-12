@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Module</title>
+    <link rel="stylesheet" href="loginModule.css">
 </head>
 <body>
+<!-- 這是登入模板的容器 -->
 
-<div id="my-login-container"></div>
+<login-module id="loginContainer"></login-module>
 
-<!--<script src="https://cdn.jsdelivr.net/gh/Shi-Qii/loginPage@main/login_module_gama/src/script.js-->
-<!--"></script>-->
-<script src="./script.js">
-   init({
-       useGoogleLogin:true
-   });
+<script src="script.js"></script>
+<script>
 
-    renderLogin('my-login-container');
+    init({
+        useLogin: true,
+        useGoogleLogin: true,
+        useFBLogin: true
+    });
 </script>
-
 
 </body>
 </html>

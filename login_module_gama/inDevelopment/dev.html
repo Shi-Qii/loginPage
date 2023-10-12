@@ -4,30 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Module</title>
-
+  <link rel="stylesheet" href="loginModule.css">
 </head>
 <body>
-
 <!-- 這是登入模板的容器 -->
-<div id="loginContainer"></div>
 
-<!-- 包含你的腳本 -->
+<login-module id="loginContainer"></login-module>
+
 <script src="loginModule.js"></script>
-
-<!-- 初始化登入模組 -->
 <script>
-  renderLogin('loginContainer', {
-    onLoginSuccess: function() {
-      alert('Logged in successfully!');
-      // 這裡可以添加其他代碼，例如導向其他頁面等
-    },
-    onLoginFailure: function() {
-      alert('Login failed!');
-    }
-  });
 
   init({
-    useGoogleLogin: true
+    useLogin: true,
+    useGoogleLogin: true,
+    useFBLogin: true
   });
 </script>
 
