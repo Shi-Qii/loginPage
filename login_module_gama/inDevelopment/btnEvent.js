@@ -87,26 +87,28 @@ const logout = () => {
  * 對應登入方法
  */
 const loginSubmit = async () => {
-    alert('我是email登入')
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
-    // 要發送的數據
-    const data = {
-        'username': username,
-        'password': password
-    };
-    let obj;
-    //oauth2/thirdParty/getLoginModuleInfo
-    await axios.post('https://dev-api.gashpoint.io/consumer/api/oauth/Eamil',data)
-        .then(res => {
-            // 通常 res 會是多項資料，取出需要的部份
-            obj = res.data
-        })
-        // err.response 是固定用法
-        .catch(err => {
-            console.log(err.response);
-        })
-    return obj;
+    if (isInitialized){
+        alert('我是email登入')
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        // 要發送的數據
+        const data = {
+            'username': username,
+            'password': password
+        };
+        let obj;
+        //oauth2/thirdParty/getLoginModuleInfo
+        await axios.post('https://dev-api.gashpoint.io/consumer/api/oauth/Eamil',data)
+            .then(res => {
+                // 通常 res 會是多項資料，取出需要的部份
+                obj = res.data
+            })
+            // err.response 是固定用法
+            .catch(err => {
+                console.log(err.response);
+            })
+        return obj;
+    }
 }
 
 /**

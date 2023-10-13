@@ -80,22 +80,23 @@ const init = (params) => {
     }
 // 如果params中有useGoogleLogin且其值為true，則顯示按鈕，否則隱藏按鈕
     if (params.useLogin) {
-        // let obj;
-        // <!--  1.GET: oauth2/thirdParty/getLoginModuleInfo-->
-        // axios.post('https://dev-api.gashpoint.io/consumer/api/oauth//sdk/loginSupport'
-        //     , {
-        //         "clientID": "admin001",
-        //         "clientSecret": "fdaslkfjl3r4jlkjdfsl$@%435f",
-        //     }
-        // ).then(res => {
-        //         // 通常 res 會是多項資料，取出需要的部份
-        //         obj = res.data
-        //     })
-        //     // err.response 是固定用法
-        //     .catch(err => {
-        //         console.log(err.response);
-        //     })
-        // console.log('obj:', obj)
+        let obj;
+        const data = {
+            "clientID": "admin001",
+            "clientSecret": "fdaslkfjl3r4jlkjdfsl$@%435f",
+        };
+        <!--  1.GET: oauth2/thirdParty/getLoginModuleInfo-->
+        axios.post('https://dev-api.gashpoint.io/consumer/api/oauth//sdk/loginSupport'
+            , data
+        ).then(res => {
+            // 通常 res 會是多項資料，取出需要的部份
+            obj = res.data
+        })
+            // err.response 是固定用法
+            .catch(err => {
+                console.log(err.response);
+            })
+        console.log('obj:', obj)
 
         //顯示彈窗
         useLoginModalTemplate()
