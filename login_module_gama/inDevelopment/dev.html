@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Module</title>
-  <link rel="stylesheet" href="loginModule.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Module</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="custom-icons/styles.css">
+    <script src="Axios.v1.5.1.js"></script>
+    <script src="loginModule.js"></script>
+    <script src="btnEvent.js"></script>
+
 </head>
 <body>
 <!-- 這是登入模板的容器 -->
-
 <login-module id="loginContainer"></login-module>
 
-<script src="loginModule.js"></script>
 <script>
 
-  init({
-    useLogin: true,
-    useGoogleLogin: true,
-    useFBLogin: true
-  });
+    init({
+        useLogin: true,
+        useGoogleLogin: true,
+        useFBLogin: true,
+        useBFunLogin: true,
+        useLineLogin: true,
+        useAppleLogin: true,
+        useDCLogin: true,
+    });
 </script>
 
 </body>

@@ -1,0 +1,308 @@
+@charset "UTF-8";
+* {
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  box-sizing: border-box;
+}
+
+a {
+  color: gray;
+}
+@media (hover: hover) {
+  a:hover {
+    color: tomato;
+  }
+}
+
+i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #008BF2;
+  color: white;
+  border-radius: 0.625rem;
+  border: 0.0625rem solid transparent;
+  padding: 0.625rem 1.5rem;
+  transition-property: background-color;
+}
+@media (hover: hover) {
+  button:hover {
+    background-color: #007cd9;
+  }
+}
+
+input {
+  border-radius: 0.625rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  border: 0.0625rem solid gray;
+  background-color: transparent;
+}
+input[disabled] {
+  background-color: lightgray;
+  color: gray;
+}
+input[disabled]::-moz-placeholder {
+  color: gray;
+}
+input[disabled]::placeholder {
+  color: gray;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown .dropdown-content {
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0;
+}
+.dropdown.login button::after {
+  font-family: "custom-icons";
+  content: "i";
+}
+.dropdown.login .dropdown-padding {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10rem;
+  z-index: 2;
+}
+.dropdown.login .dropdown-content {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10rem;
+  padding: 0 1.25rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.25);
+  background-color: #008BF2;
+  font-size: 0.875rem;
+  height: auto;
+  transition-property: max-height, padding, opacity;
+}
+.dropdown.login .dropdown-content > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  max-height: 13.75rem;
+  overflow-y: auto;
+}
+.dropdown.login .dropdown-content > ul::-webkit-scrollbar {
+  width: 0.25rem;
+  background-color: transparent;
+  border-radius: 0.25rem;
+}
+.dropdown.login .dropdown-content > ul::-webkit-scrollbar-thumb {
+  width: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+}
+.dropdown.login .dropdown-content > ul > li {
+  flex: 100%;
+  text-align: center;
+  color: white;
+  border-radius: 0.625rem;
+  transition-property: background-color;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .dropdown.login .dropdown-content > ul > li:hover {
+    background-color: #007cd9;
+  }
+}
+.dropdown.login .dropdown-content > ul > li.active {
+  background-color: #007cd9;
+}
+@media (hover: hover) {
+  .dropdown.login:hover button::after {
+    transform: rotate(180deg);
+  }
+  .dropdown.login:hover .dropdown-padding {
+    padding-top: 1rem;
+  }
+  .dropdown.login:hover .dropdown-content {
+    padding: 1.25rem 1rem;
+    max-height: 17.5rem;
+    opacity: 1;
+  }
+}
+.dropdown.login.active button::after {
+  transform: rotate(180deg);
+}
+.dropdown.login.active .dropdown-padding {
+  padding-top: 1rem;
+}
+.dropdown.login.active .dropdown-content {
+  padding: 1.25rem 1rem;
+  max-height: 17.5rem;
+  opacity: 1;
+}
+@media (max-width: 1024px) {
+  .dropdown.login.active button::after {
+    content: "\e903";
+  }
+  .dropdown.login.active .dropdown-content {
+    padding: 1.75rem 1.25rem;
+    max-height: 18.75rem;
+    opacity: 1;
+  }
+}
+
+/* 模態框基本樣式 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100lvw;
+  height: 100lvh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  position: relative;
+  background-color: whitesmoke;
+  margin: 15% auto;
+  padding: 1.75rem;
+  padding-top: 4.25rem;
+  width: 27.5rem;
+  max-width: calc(100svw - 1.5rem);
+  border-radius: 1.25rem;
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  color: gray;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: color;
+}
+.close:focus {
+  color: black;
+}
+@media (hover: hover) {
+  .close:hover {
+    color: black;
+  }
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 0.0625rem solid lightgray;
+}
+form .warning {
+  font-size: 0.875rem;
+  color: tomato;
+}
+form > input {
+  flex: 100%;
+}
+form > div {
+  flex: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+}
+form > div i {
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+form > div input {
+  flex-grow: 1;
+}
+form > div #captcha {
+  display: flex;
+  margin-top: 0.25rem;
+}
+form > div button {
+  flex: 50%;
+  max-width: 50%;
+  margin: 0.5rem auto 0;
+  font-size: 1rem;
+}
+form > div span {
+  flex: 100%;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.method button {
+  flex: 2.75rem;
+  max-width: 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: #b3b3b3;
+  color: white;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border: none;
+  transition-property: background-color;
+}
+.method button img {
+  width: 100%;
+  margin-bottom: -0.25rem;
+}
+@media (hover: hover) {
+  .method button:hover#login-btn-beanfun {
+    background-color: #26D07C;
+  }
+  .method button:hover#login-btn-google {
+    background-color: #4285F4;
+  }
+  .method button:hover#login-btn-line {
+    background-color: #00c300;
+  }
+  .method button:hover#login-btn-apple {
+    background-color: black;
+  }
+  .method button:hover#login-btn-discord {
+    background-color: #5865f2;
+  }
+}
