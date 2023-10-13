@@ -67,8 +67,12 @@ class LoginModule extends HTMLElement {
         this.innerHTML = openModalBtnTemplate;
     }
 }
-customElements.define('login-module', LoginModule);
 
+customElements.define('login-module', LoginModule);
+/**
+ * 初始化方法
+ * @param params
+ */
 const init = (params) => {
     if (!params) {
         console.error('Initialization parameters are required.');
@@ -116,7 +120,9 @@ const init = (params) => {
     closeElement('login-after');
     closeElement('inputErr');
 }
-
+/**
+ * 開啟Modal
+ */
 const useLoginModalTemplate = () => {
     // 獲取模態框元素
     const modal = document.getElementById('login-modal');
@@ -143,9 +149,16 @@ const useLoginModalTemplate = () => {
     // }
 
 }
+/**
+ * 關閉Modal
+ */
 const closeLoginModal = () => {
     closeElement('login-modal');
 }
+
+/**
+ * 表單預設事件
+ */
 document.addEventListener('DOMContentLoaded',
     function () {
         document.getElementById('login-form').addEventListener
@@ -182,10 +195,18 @@ document.addEventListener('DOMContentLoaded',
         });
     });
 
-
-const openElement = () => {
-    document.getElementById('login-after').style.display = 'block';
+/**
+ * 共用開啟任何元素
+ * @param id
+ */
+const openElement = (id) => {
+    document.getElementById('id').style.display = 'block';
 }
+
+/**
+ * 共用關閉任何元素
+ * @param id
+ */
 const closeElement = (id) => {
     document.getElementById(id).style.display = 'none';
 }

@@ -1,3 +1,7 @@
+/**
+ * 對應參數顯示哪些第三方登入按鈕
+ * @param showLoginType
+ */
 const showLoginBtnType = (showLoginType) => {
     let bfId = 'login-btn-beanfun';
     let googleId = 'login-btn-google';
@@ -63,17 +67,37 @@ const showLoginBtnType = (showLoginType) => {
     }
 }
 
+/**
+ * 預設
+ * 對應登入後userInfo連結
+ */
 const userInfo = () => {
     alert('我是userInfo')
 }
+/**
+ * 預設
+ * 對應登入後logout
+ */
 const logout = () => {
     alert('我是logout')
 }
+
+/**
+ * 預設
+ * 對應登入方法
+ */
 const loginSubmit = async () => {
     alert('我是email登入')
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    // 要發送的數據
+    const data = {
+        'username': username,
+        'password': password
+    };
     let obj;
     //oauth2/thirdParty/getLoginModuleInfo
-    await axios.get('https://dev-api.gashpoint.io/consumer/api/oauth/Eamil')
+    await axios.post('https://dev-api.gashpoint.io/consumer/api/oauth/Eamil',data)
         .then(res => {
             // 通常 res 會是多項資料，取出需要的部份
             obj = res.data
@@ -84,6 +108,11 @@ const loginSubmit = async () => {
         })
     return obj;
 }
+
+/**
+ * 預設
+ * 可以看到密碼，眼睛icon事件
+ */
 const togglePasswordVisibility = () => {
 
     let passwordInput = document.getElementById('password');
