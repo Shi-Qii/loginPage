@@ -1,4 +1,5 @@
 let isInitialized = false;
+let isLoggedIn = false;
 //共用參數
 let userCallbacks = {
     onLoginSuccess: null,
@@ -31,7 +32,9 @@ let openModalBtnTemplate = `
     <div class="login-container">
     <form id="login-form">
         <span id="inputErr" class="warning">帳號或密碼錯誤</span>
-        <input type="text" id="username" value="aaa@gmail.com" placeholder="Username"   />
+         <div>
+            <input type="text" id="username" placeholder="Username" value="aaa@gmail.com" required />
+        </div>
         <div>
             <input type="password" id="password" value="fdaslkfjl3r4jlkjdfsl$@%435f" placeholder="Password"   />
             <i onclick="togglePasswordVisibility()" class="icon-eye-slash"></i>
@@ -69,58 +72,76 @@ class LoginModule extends HTMLElement {
 }
 
 customElements.define('login-module', LoginModule);
+
 /**
  * 初始化方法
  * @param params
  */
 const init = (params) => {
+    closeElement('login-after');
+    closeElement('inputErr');
     if (!params) {
         console.error('Initialization parameters are required.');
         return;
     }
-// 如果params中有useGoogleLogin且其值為true，則顯示按鈕，否則隱藏按鈕
-    if (params.useLogin) {
-        let obj;
-        const data = {
-            "clientID": "admin001",
-            "clientSecret": "fdaslkfjl3r4jlkjdfsl$@%435f",
+
+    if (!isLoggedIn) {
+        // 如果params中有useGoogleLogin且其值為true，則顯示按鈕，否則隱藏按鈕
+        let loginSupportObj;
+        const clientData = {
+            "clientID": params.clientID,
+            "clientSecret": params.clientSecret,
         };
-        <!--  1.GET: oauth2/thirdParty/getLoginModuleInfo-->
-        axios.post('https://dev-api.gashpoint.io/consumer/api/oauth//sdk/loginSupport'
-            , data
-        ).then(res => {
-            // 通常 res 會是多項資料，取出需要的部份
-            obj = res.data
-        })
-            // err.response 是固定用法
-            .catch(err => {
-                console.log(err.response);
-            })
-        console.log('obj:', obj)
+        // let getLoginSupportUrl = 'https://dev-api.gashpoint.io/consumer/api/oauth//sdk/loginSupport';
+        // loginModuleApiPost(getLoginSupportUrl, clientData).then(res => {
+        //     obj = res.data
+        // })
+        loginSupportObj = {
+            "sdkAccessToken": "dfdfsdfdsfeewfdfsdf.zzzzzzz.bbbbbbbbb",
+            "useLogin": "true",
+            "useGoogleLogin": true,
+            "useBFunLogin": true,
+            "useLineLogin": true,
+            "useAppleLogin": true,
+            "useDCLogin": true,
+            "useFBLogin": true,
+            "dropdown": {
+                // showDropdownBtn: ture,
+                // showUserInfo: ture,
+                // showLogout: ture,
+            }
+        }
 
-        //顯示彈窗
-        useLoginModalTemplate()
 
+        // 初始化參數設定
+        // 先判斷所需的參數
+        // params:{ } 待討論
+        if (loginSupportObj.sdkAccessToken !== undefined &&
+            loginSupportObj.sdkAccessToken !== "undefined" &&
+            loginSupportObj.sdkAccessToken !== null &&
+            loginSupportObj.sdkAccessToken.trim().length !== 0
+        ) {
+            isInitialized = true;
+        }
 
-        showLoginBtnType({
-            'google': params.useGoogleLogin,
-            'BF': params.useBFunLogin,
-            'Line': params.useLineLogin,
-            'Apple': params.useAppleLogin,
-            'DC': params.useDCLogin,
-            'FB': params.useFBLogin,
-        })
+        //要等初始化邏輯確認後才能使用
+        if (isInitialized) {
+            const retrievedData = sessionGet('UserAccessToken');
+            //要拿token跟clientData去打api
+            // 看有沒有辦法拿到會員資料有的話就不需要給useLoginModalTemplate
+            showLoginBtnType({
+                'google': loginSupportObj.useGoogleLogin,
+                'BF': loginSupportObj.useBFunLogin,
+                'Line': loginSupportObj.useLineLogin,
+                'Apple': loginSupportObj.useAppleLogin,
+                'DC': loginSupportObj.useDCLogin,
+                'FB': loginSupportObj.useFBLogin,
+            }, useLoginModalTemplate);
+        }
     }
-    // 初始化參數設定
-    // 先判斷所需的參數
-    // params:{ } 待討論
-    isInitialized = true;
-    if (isInitialized) {
-
-    }
-    closeElement('login-after');
-    closeElement('inputErr');
 }
+
+
 /**
  * 開啟Modal
  */
@@ -201,7 +222,7 @@ document.addEventListener('DOMContentLoaded',
  * @param id
  */
 const openElement = (id) => {
-    document.getElementById('id').style.display = 'block';
+    document.getElementById(id).style.display = 'block';
 }
 
 /**

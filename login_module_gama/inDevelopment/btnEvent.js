@@ -1,8 +1,10 @@
+
+
 /**
  * 對應參數顯示哪些第三方登入按鈕
  * @param showLoginType
  */
-const showLoginBtnType = (showLoginType) => {
+const showLoginBtnType = (showLoginType, callback) => {
     let bfId = 'login-btn-beanfun';
     let googleId = 'login-btn-google';
     let lineId = 'login-btn-line';
@@ -65,6 +67,13 @@ const showLoginBtnType = (showLoginType) => {
     } else {
         // document.getElementById(discordId).style.display = 'none';
     }
+
+
+    //參數對造後才能彈出modal
+    //顯示彈窗
+    if (callback) {
+        callback?.();
+    }
 }
 
 /**
@@ -81,13 +90,12 @@ const userInfo = () => {
 const logout = () => {
     alert('我是logout')
 }
-
 /**
  * 預設
  * 對應登入方法
  */
 const loginSubmit = async () => {
-    if (isInitialized){
+    if (isInitialized) {
         alert('我是email登入')
         let username = document.getElementById('username').value;
         let password = document.getElementById('password').value;
@@ -98,15 +106,20 @@ const loginSubmit = async () => {
         };
         let obj;
         //oauth2/thirdParty/getLoginModuleInfo
-        await axios.post('https://dev-api.gashpoint.io/consumer/api/oauth/Eamil',data)
-            .then(res => {
-                // 通常 res 會是多項資料，取出需要的部份
-                obj = res.data
-            })
-            // err.response 是固定用法
-            .catch(err => {
-                console.log(err.response);
-            })
+        // obj = await loginModuleApiPost('https://dev-api.gashpoint.io/consumer/api/oauth/Eamil', data);
+        //先假設回來的值
+        obj = {
+            UserAccessToken: 'dsfgfsdgdfgfdgfdfsdfdsfeewfdfsdf',
+            userName: 'aaa',
+            email: 'aaa',
+            address: 'aaa',
+        }
+        if (obj.UserAccessToken != null) {
+            sessionSet('UserAccessToken', obj.UserAccessToken);
+            //到時候要放到token的值
+            const retrievedData = sessionGet('UserAccessToken');
+
+        }
         return obj;
     }
 }
@@ -122,5 +135,56 @@ const togglePasswordVisibility = () => {
         passwordInput.type = "text";
     } else {
         passwordInput.type = "password";
+    }
+}
+
+
+const loginModuleApiGet = async (url) => {
+    try {
+        const {data, status} = await axios.get(url, {
+            headers: {
+                Accept: "application/json",
+                "Cache-Control": "no cache",
+                Pragma: "no-cache",
+                Expires: "0",
+            },
+        });
+        if (status !== 200 || data === undefined) {
+            throw `[ERROR] loginModuleApiGet return error http status: ${status}`;
+        }
+        return data;
+    } catch (error) {
+        console.log("[loginModuleApiGet] error :", error);
+    }
+};
+
+const loginModuleApiPost = async (url, params) => {
+    try {
+        const {data, status} = await axios.post(
+            url,
+            params,
+            {
+                headers: {
+                    Accept: "application/json",
+                    "Cache-Control": "no cache",
+                    Pragma: "no-cache",
+                    Expires: "0",
+                },
+            }
+        );
+        if (status !== 200 || data === undefined) {
+            throw `[ERROR] loginModuleApiGet return error http status: ${status}`;
+        }
+        return data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw `[ERROR] loginModuleApiPost axios catch error: ${JSON.stringify(
+                error
+            )}, url: ${url}, params: ${JSON.stringify(params)}`;
+        } else {
+            throw `[ERROR] loginModuleApiPost catch error: ${JSON.stringify(
+                error
+            )}, url: ${url}, params: ${JSON.stringify(params)}`;
+        }
     }
 }

@@ -32,7 +32,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #008BF2;
+  background-color: black;
   color: white;
   border-radius: 0.625rem;
   border: 0.0625rem solid transparent;
@@ -41,7 +41,7 @@ button {
 }
 @media (hover: hover) {
   button:hover {
-    background-color: #007cd9;
+    background-color: #4d4d4d;
   }
 }
 
@@ -92,7 +92,7 @@ input[disabled]::placeholder {
   padding: 0 1.25rem;
   border-radius: 1.25rem;
   box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.25);
-  background-color: #008BF2;
+  background-color: black;
   font-size: 0.875rem;
   height: auto;
   transition-property: max-height, padding, opacity;
@@ -126,11 +126,11 @@ input[disabled]::placeholder {
 }
 @media (hover: hover) {
   .dropdown.login .dropdown-content > ul > li:hover {
-    background-color: #007cd9;
+    background-color: #333333;
   }
 }
 .dropdown.login .dropdown-content > ul > li.active {
-  background-color: #007cd9;
+  background-color: #333333;
 }
 @media (hover: hover) {
   .dropdown.login:hover button::after {
@@ -241,9 +241,17 @@ form > div i {
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0.25rem;
+  transition-property: color;
+  color: black;
+}
+@media (hover: hover) {
+  form > div i:hover {
+    color: #4d4d4d;
+  }
 }
 form > div input {
   flex-grow: 1;
+  max-width: calc(100% - 1.75rem - 0.5rem);
 }
 form > div #captcha {
   display: flex;

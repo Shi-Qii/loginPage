@@ -10,23 +10,20 @@
     <script src="Axios.v1.5.1.js"></script>
     <script src="loginModule.js"></script>
     <script src="btnEvent.js"></script>
-
+    <script src="SessionStorageUtils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
 <!-- 這是登入模板的容器 -->
 <login-module id="loginContainer"></login-module>
 
 <script>
-
-    init({
-        useLogin: true,
-        useGoogleLogin: true,
-        useFBLogin: true,
-        useBFunLogin: true,
-        useLineLogin: true,
-        useAppleLogin: true,
-        useDCLogin: true,
-    });
+    //初始化使用需要給init一組clientID/clientSecret,
+    let useLoginModuleObject = {
+        clientID:"admin001",
+        clientSecret:"fdaslkfjl3r4jlkjdfsl$@%435f",
+    }
+    init(useLoginModuleObject);
 </script>
 
 </body>
